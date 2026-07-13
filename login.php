@@ -38,11 +38,45 @@ include './config.php';
 
 
     <!--  -->
+
+    <?php
+    if (isset($_POST['submit'])) {
+
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $query = "select * from `authentication3`.`users` 
+        where email= '$email' AND password= '$password' ";
+
+        $result = mysqli_query($conn, $query);
+
+        if (mysqli_num_rows($result) > 0) {
+
+            echo "
+            <script>
+            alert('Login successfully');
+            window.location.href = './profile.php'
+            </script>
+            ";
+        } else {
+            echo "
+            <script>
+            alert('Invalid email or password');
+            window.location.href = './login.php'
+            </script>
+            ";
+        }
+    }
+
+
+
+    ?>
+
     <div class="container">
         <div class="content d-flex justify-content-center">
             <div class="form-design card p-3 mt-5 col-md-4">
 
-                <form action="">
+                <form method="POST">
                     <h2><b><u>Login</u></b></h2>
                     <p><i>Quick Login to redirect <b>Profile Page</b></i></p>
                     <br>
@@ -50,7 +84,7 @@ include './config.php';
                     <input type="email" name="email" placeholder="Enter email address" class="form-control m-2 p-2" required>
                     <input type="password" name="password" placeholder="Enter password" class="form-control m-2 p-2" required>
 
-                    <button type="submit" class="btn btn-info w-100">Login</button>
+                    <button type="submit" name="submit" class="btn btn-info w-100">Login</button>
 
                 </form>
 
