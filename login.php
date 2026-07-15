@@ -1,4 +1,11 @@
 <?php
+session_start();
+if (isset($_SESSION['login'])) {
+    header('location: ./profile.php');
+    exit();
+}
+
+
 include './config.php';
 ?>
 <!DOCTYPE html>
@@ -51,6 +58,9 @@ include './config.php';
         $result = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($result) > 0) {
+
+            $_SESSION['login'] = true;
+            $_SESSION['email'] = $email;
 
             echo "
             <script>
