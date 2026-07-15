@@ -1,5 +1,16 @@
 <?php
+session_start();
+if (!isset($_SESSION['login'])) {
+    echo "
+    <script>
+    alert('Authentication Error: Unknown User')
+    window.location.href = './login.php'
+    </script>
+    ";
+}
+
 include './config.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,13 +23,13 @@ include './config.php';
     <style>
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+            /* font-family: Arial, Helvetica, sans-serif; */
             background: #f5f5f5;
         }
 
         .navbar {
-            /* background:#111827;
-            color:white; */
+            background: linear-gradient(to right, #0056ff);
+            color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -30,11 +41,11 @@ include './config.php';
         }
 
         .logout {
-            background: red;
+            background: linear-gradient(to right, black, #333);
             color: white;
             text-decoration: none;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 10px;
         }
 
         .container {
@@ -72,7 +83,7 @@ include './config.php';
         }
 
         button {
-            background: #0056ff;
+            background: linear-gradient(to right, #0056ff, #003399);
             color: white;
             border: none;
             padding: 12px 25px;
@@ -87,7 +98,7 @@ include './config.php';
     <div class="navbar" style="border-bottom: 3px solid blue;">
         <h2>Authentication - System</h2>
 
-        <a href="login.php" class="logout">Logout</a>
+        <a href="logout.php" class="logout">Logout</a>
     </div>
 
     <div class="container">
@@ -109,15 +120,14 @@ include './config.php';
 
                 <label>Username</label>
 
-                <input type="text" name="username">
+                <input type="text" name="username" placeholder="Username">
 
                 <label>Email</label>
 
-                <input type="email" name="email">
-
+                <input type="email" name="email" placeholder="Email">
                 <label>Password</label>
 
-                <input type="password" name="password" placeholder="">
+                <input type="password" name="password" placeholder="********">
 
                 <button type="submit" name="update">
                     Save Changes
